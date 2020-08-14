@@ -124,7 +124,7 @@ export class AppComponent implements  OnDestroy {
     this.uploadService.upload(formData).pipe(
       map(event => {
         if (event instanceof HttpResponse) {
-          // event.body from response 
+          // event.body from response
           this.populateForm(mockImageExtractorResponse);
         }
       }),
