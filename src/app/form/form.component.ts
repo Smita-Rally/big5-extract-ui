@@ -6,7 +6,7 @@ import { map, take, tap } from 'rxjs/operators';
 @Component({
     selector: 'app-form',
     templateUrl: './form.component.html',
-    styleUrls: ['./form.component.css']
+    styleUrls: ['../app.component.css', './form.component.css']
 })
 export class FormComponent implements OnInit {
 
