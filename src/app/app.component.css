@@ -9,7 +9,6 @@ video {
 
 .buttons {
     display: flex;
-    align-items: space-between;
 }
 
 button, .file-upload, .form-buttons {
@@ -25,7 +24,7 @@ button, .file-upload, .form-buttons {
     text-decoration: none;
     transition: all .2s;
     color: #fff;
-    margin: 20px 0;
+    margin: 20px;
 }
 
 .right-btn {
