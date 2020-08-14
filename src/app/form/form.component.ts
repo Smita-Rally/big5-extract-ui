@@ -1,5 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ImageExtractorResponse } from '../models/ImageExtractorResponse';
+import { interval } from 'rxjs';
+import { map, take, tap } from 'rxjs/operators';
 
 @Component({
     selector: 'app-form',
@@ -8,12 +10,30 @@ import { ImageExtractorResponse } from '../models/ImageExtractorResponse';
 })
 export class FormComponent implements OnInit {
 
-    @Input() formData: ImageExtractorResponse;
+  formData;
 
-    constructor() { }
+  @Input() extractedData: ImageExtractorResponse;
 
-    ngOnInit() {
-        console.log('form data', this.formData);
-    }
+  constructor() { }
 
+  ngOnInit() {
+    this.initFormData();
+
+    interval(1000)
+      .pipe(
+        take(Object.values(this.extractedData).length),
+        map(i => [i, Object.values(this.extractedData)[i]]),
+        tap(([i, val]) => this.formData[i] = val),
+      ).subscribe();
+  }
+
+  initFormData() {
+    this.formData = {
+      0: null,
+      1: null,
+      2: null,
+      3: null,
+      4: null
+    };
+  }
 }

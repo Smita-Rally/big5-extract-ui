@@ -72,17 +72,17 @@ export class AppComponent implements OnInit {
     }
 
     postRequest() {
-        const file	=  this.dataURIToBlob(this.canvas.nativeElement.toDataURL( 'image/png' ));
-        return this.http.post(`/api`, file)
-          .pipe(catchError(error => this.handleError(error)))
-          .subscribe( res => console.log(res));
+      const file	=  this.dataURIToBlob(this.canvas.nativeElement.toDataURL( 'image/png' ));
 
-        // testing
-        this.populateForm(mockImageExtractorResponse);
+      this.populateForm(mockImageExtractorResponse);
+
+      return this.http.post(`/api`, file)
+        .pipe(catchError(error => this.handleError(error)))
+        .subscribe( res => console.log(res));
     }
 
     dataURIToBlob(dataURI: string) {
-        const splitDataURI = dataURI.split(',')
+        const splitDataURI = dataURI.split(',');
         const byteString = splitDataURI[0].indexOf('base64') >= 0 ? atob(splitDataURI[1]) : decodeURI(splitDataURI[1])
         const mimeString = splitDataURI[0].split(':')[1].split(';')[0]
 
@@ -94,22 +94,21 @@ export class AppComponent implements OnInit {
 
     }
 
-    // testing
     populateForm(extractedData: ImageExtractorResponse) {
         this.extractedImageData = extractedData;
     }
 
     onSelectFile(event): void {
-    console.log(event)
-    if (event.target.files && event.target.files[0]) {
-      const reader = new FileReader();
-
-      reader.readAsDataURL(event.target.files[0]);
-      // tslint:disable-next-line:no-shadowed-variable
-      reader.onload = (event) => {
-        this.url = event.target.result;
-        console.log(this.url)
+      const reader = new FileReader(); // HTML5 FileReader API
+      const file = event.target.files[0];
+      if (event.target.files && event.target.files[0]) {
+        reader.readAsDataURL(file);
+        // When file uploads set it to file formcontrol
+        reader.onload = () => {
+          this.url = reader.result;
+        };
+        // ChangeDetectorRef since file is loading outside the zone
+        // this.cdr.markForCheck();
       }
     }
-  }
 }
