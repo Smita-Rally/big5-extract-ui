@@ -1,10 +1,10 @@
 import {Component, ElementRef, Injectable, OnDestroy, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {mockImageExtractorResponse} from './mock/mock-data';
 import {ImageExtractorResponse} from './models/ImageExtractorResponse';
-import {HttpClient, HttpErrorResponse, HttpEventType} from '@angular/common/http';
-import {catchError, map, switchMap, take} from 'rxjs/operators';
-import {Observable, of} from 'rxjs';
-import { UploadService} from './upload.service';
+import {HttpClient, HttpErrorResponse, HttpResponse} from '@angular/common/http';
+import {catchError, map} from 'rxjs/operators';
+import {UploadService} from './upload.service';
+import {of} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ import { UploadService} from './upload.service';
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements  OnDestroy {
     @ViewChild('video', { static: true }) videoElement: ElementRef;
     @ViewChild('canvas', { static: true }) canvas: ElementRef;
     extractedImageData: ImageExtractorResponse;
@@ -31,13 +31,7 @@ export class AppComponent implements OnInit, OnDestroy {
             height: { ideal: 2160 }
         }
     };
-    private file: Blob;
-
     constructor(private renderer: Renderer2, private http: HttpClient, private uploadService: UploadService) {}
-
-    ngOnInit() {
-        // this.startCamera();
-    }
 
     startCamera() {
         if (!!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) {
@@ -79,7 +73,6 @@ export class AppComponent implements OnInit, OnDestroy {
       this.onStop();
       const img = document.createElement('img');
       img.src = this.canvas.nativeElement.toDataURL('image/jpeg');
-      this.populateForm(mockImageExtractorResponse);
       this.dataURIToBlob(img.src);
     }
 
@@ -108,6 +101,7 @@ export class AppComponent implements OnInit, OnDestroy {
     }
 
     onSelectFile(event): void {
+      this.isStartCamera = false;
       if (this.videoElement.nativeElement || this.canvas.nativeElement) {
         this.canvas.nativeElement.style.display = 'none';
         this.videoElement.nativeElement.style.display = 'none';
@@ -129,12 +123,9 @@ export class AppComponent implements OnInit, OnDestroy {
     file.inProgress = true;
     this.uploadService.upload(formData).pipe(
       map(event => {
-        switch (event.type) {
-          case HttpEventType.UploadProgress:
-            file.progress = Math.round(event.loaded * 100 / event.total);
-            break;
-          case HttpEventType.Response:
-            return event;
+        if (event instanceof HttpResponse) {
+          this.populateForm(mockImageExtractorResponse);
+          console.log(event.body);
         }
       }),
       catchError((error: HttpErrorResponse) => {
@@ -142,7 +133,6 @@ export class AppComponent implements OnInit, OnDestroy {
         return of(`${file.data.name} upload failed.`);
       })).subscribe((event: any) => {
       if (typeof (event) === 'object') {
-        console.log(event.body);
       }
     });
   }

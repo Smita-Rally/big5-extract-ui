@@ -9,7 +9,7 @@ export class UploadService {
   SERVER_URL = 'https://file.io/';
   constructor(private httpClient: HttpClient) { }
 
-  public upload(formData) {
+  public upload(formData): object {
 
     return this.httpClient.post<any>(this.SERVER_URL, formData, {
       reportProgress: true,
