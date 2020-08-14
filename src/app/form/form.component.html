@@ -1,24 +1,27 @@
 <form>
-    <ul>
-        <li>
-            <label for="firstName">First Name:</label>
-            <input type="text" id="firstName" name="user_first_name" [value]="formData?.firstName">
-        </li>
-        <li>
-            <label for="lastName">Last Name:</label>
-            <input type="text" id="lastName" name="user_last_name" [value]="formData?.lastName">
-        </li>
-        <li>
-            <label for="memberId">Member Id:</label>
-            <input type="text" id="memberId" name="user_member_id" [value]="formData?.memberId">
-        </li>
-        <li>
-            <label for="groupNumber">Group Number:</label>
-            <input type="text" id="groupNumber" name="user_group_number" [value]="formData?.groupNumber">
-        </li>
-        <li>
-            <label for="employer">Employer:</label>
-            <input type="text" id="employer" name="user_employer" [value]="formData?.employer">
-        </li>
-    </ul>
+  <ul>
+    <li>
+      <label for="firstName">First Name:</label>
+      <input type="text" id="firstName" name="user_first_name" [value]="formData[0]">
+    </li>
+    <li>
+      <label for="lastName">Last Name:</label>
+      <input type="text" id="lastName" name="user_last_name" [value]="formData[1]">
+    </li>
+    <li>
+      <label for="memberId">Member Id:</label>
+      <input type="text" id="memberId" name="user_member_id" [value]="formData[2]">
+    </li>
+    <li>
+      <label for="groupNumber">Group Number:</label>
+      <input type="text" id="groupNumber" name="user_group_number" [value]="formData[3]">
+    </li>
+    <li>
+      <label for="employer">Employer:</label>
+      <input type="text" id="employer" name="user_employer" [value]="formData[4]">
+    </li>
+  </ul>
+  <input type="reset" value="Reset">
+  <input type="submit" value="Submit">
 </form>
+
