@@ -1,9 +1,10 @@
 import { ImageExtractorResponse } from "../models/ImageExtractorResponse";
 
 export const mockImageExtractorResponse: ImageExtractorResponse = {
-    firstName: 'Brandon',
-    lastName: 'Brown',
-    memberId: 'ABC123',
-    groupNumber: '000042',
-    employer: 'Rally'
+    firstName: 'Smita',
+    lastName: 'Trivedi',
+    memberId: '9708772604',
+    groupNumber: '903033',
+    employer: 'Rally Health, Inc',
+    insuranceCarrier: 'United Healthcare'
 }

@@ -22,6 +22,7 @@ export class AppComponent implements  OnDestroy {
     url: any;
     isStartCamera = false;
     mediaStream;
+    showForm = false;
     videoWidth = 0;
     videoHeight = 0;
     constraints = {
@@ -97,10 +98,11 @@ export class AppComponent implements  OnDestroy {
     }
 
     populateForm(extractedData: ImageExtractorResponse) {
-        this.extractedImageData = extractedData;
+      this.extractedImageData = extractedData;
     }
 
     onSelectFile(event): void {
+      this.showForm = false;
       this.isStartCamera = false;
       if (this.videoElement.nativeElement || this.canvas.nativeElement) {
         this.canvas.nativeElement.style.display = 'none';
@@ -123,7 +125,10 @@ export class AppComponent implements  OnDestroy {
     file.inProgress = true;
     this.uploadService.upload(formData).pipe(
       map(event => {
+        this.showForm = true;
+        this.populateForm(mockImageExtractorResponse);
         if (event instanceof HttpResponse) {
+          console.log(event);
           // event.body from response
           this.populateForm(mockImageExtractorResponse);
         }

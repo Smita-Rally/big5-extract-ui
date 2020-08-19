@@ -3411,6 +3411,7 @@ let AppComponent = class AppComponent {
         this.uploadService = uploadService;
         this.isVideo = false;
         this.isStartCamera = false;
+        this.showForm = false;
         this.videoWidth = 0;
         this.videoHeight = 0;
         this.constraints = {
@@ -3480,6 +3481,7 @@ let AppComponent = class AppComponent {
         this.extractedImageData = extractedData;
     }
     onSelectFile(event) {
+        this.showForm = false;
         this.isStartCamera = false;
         if (this.videoElement.nativeElement || this.canvas.nativeElement) {
             this.canvas.nativeElement.style.display = 'none';
@@ -3500,7 +3502,10 @@ let AppComponent = class AppComponent {
         formData.append('file', file);
         file.inProgress = true;
         this.uploadService.upload(formData).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(event => {
+            this.showForm = true;
+            this.populateForm(_mock_mock_data__WEBPACK_IMPORTED_MODULE_2__["mockImageExtractorResponse"]);
             if (event instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpResponse"]) {
+                console.log(event);
                 // event.body from response
                 this.populateForm(_mock_mock_data__WEBPACK_IMPORTED_MODULE_2__["mockImageExtractorResponse"]);
             }
@@ -3658,11 +3663,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 
 const mockImageExtractorResponse = {
-    firstName: 'Brandon',
-    lastName: 'Brown',
-    memberId: 'ABC123',
-    groupNumber: '000042',
-    employer: 'Rally'
+    firstName: 'Smita',
+    lastName: 'Trivedi',
+    memberId: '9708772604',
+    groupNumber: '903033',
+    employer: 'Rally Health, Inc',
+    insuranceCarrier: 'United Healthcare'
 };
 
 
@@ -3687,7 +3693,7 @@ __webpack_require__.r(__webpack_exports__);
 let UploadService = class UploadService {
     constructor(httpClient) {
         this.httpClient = httpClient;
-        this.SERVER_URL = 'https://file.io/';
+        this.SERVER_URL = 'http://localhost:9000/extract';
     }
     upload(formData) {
         return this.httpClient.post(this.SERVER_URL, formData, {

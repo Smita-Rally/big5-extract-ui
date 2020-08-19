@@ -4358,6 +4358,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         this.uploadService = uploadService;
         this.isVideo = false;
         this.isStartCamera = false;
+        this.showForm = false;
         this.videoWidth = 0;
         this.videoHeight = 0;
         this.constraints = {
@@ -4463,6 +4464,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         value: function onSelectFile(event) {
           var _this6 = this;
 
+          this.showForm = false;
           this.isStartCamera = false;
 
           if (this.videoElement.nativeElement || this.canvas.nativeElement) {
@@ -4491,8 +4493,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           formData.append('file', file);
           file.inProgress = true;
           this.uploadService.upload(formData).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (event) {
+            _this7.showForm = true;
+
+            _this7.populateForm(_mock_mock_data__WEBPACK_IMPORTED_MODULE_2__["mockImageExtractorResponse"]);
+
             if (event instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpResponse"]) {
-              // event.body from response
+              console.log(event); // event.body from response
+
               _this7.populateForm(_mock_mock_data__WEBPACK_IMPORTED_MODULE_2__["mockImageExtractorResponse"]);
             }
           }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(function (error) {
@@ -4749,11 +4756,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     "./node_modules/tslib/tslib.es6.js");
 
     var mockImageExtractorResponse = {
-      firstName: 'Brandon',
-      lastName: 'Brown',
-      memberId: 'ABC123',
-      groupNumber: '000042',
-      employer: 'Rally'
+      firstName: 'Smita',
+      lastName: 'Trivedi',
+      memberId: '9708772604',
+      groupNumber: '903033',
+      employer: 'Rally Health, Inc',
+      insuranceCarrier: 'United Healthcare'
     };
     /***/
   },
@@ -4801,7 +4809,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         _classCallCheck(this, UploadService);
 
         this.httpClient = httpClient;
-        this.SERVER_URL = 'https://file.io/';
+        this.SERVER_URL = 'http://localhost:9000/extract';
       }
 
       _createClass(UploadService, [{
