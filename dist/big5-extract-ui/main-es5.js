@@ -4809,7 +4809,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         _classCallCheck(this, UploadService);
 
         this.httpClient = httpClient;
-        this.SERVER_URL = 'http://localhost:9000/api';
+        this.SERVER_URL = 'http://localhost:9000/extract';
       }
 
       _createClass(UploadService, [{

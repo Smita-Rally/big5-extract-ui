@@ -3693,7 +3693,7 @@ __webpack_require__.r(__webpack_exports__);
 let UploadService = class UploadService {
     constructor(httpClient) {
         this.httpClient = httpClient;
-        this.SERVER_URL = 'http://localhost:9000/api';
+        this.SERVER_URL = 'http://localhost:9000/extract';
     }
     upload(formData) {
         return this.httpClient.post(this.SERVER_URL, formData, {
