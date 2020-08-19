@@ -8,7 +8,7 @@ import {mockImageExtractorResponse} from './mock/mock-data';
 })
 
 export class UploadService {
-  SERVER_URL = 'http://localhost:9000/extract';
+  SERVER_URL = 'http://localhost:9000/api';
   constructor(private httpClient: HttpClient) { }
 
   public upload(formData): any {
