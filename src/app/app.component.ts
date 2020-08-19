@@ -124,18 +124,14 @@ export class AppComponent implements  OnDestroy {
     formData.append('file', file);
     file.inProgress = true;
     this.uploadService.upload(formData).pipe(
-      map(event => {
+      map(res => {
         this.showForm = true;
-        this.populateForm(mockImageExtractorResponse);
-        if (event instanceof HttpResponse) {
-          console.log(event);
-          // event.body from response
-          this.populateForm(mockImageExtractorResponse);
-        }
+        const data = res as ImageExtractorResponse;
+        this.populateForm(data);
       }),
       catchError((error: HttpErrorResponse) => {
         file.inProgress = false;
-        return of(`${file.data.name} upload failed.`);
+        return of(`upload failed.`);
       })).subscribe((event: any) => {
       if (typeof (event) === 'object') {
       }

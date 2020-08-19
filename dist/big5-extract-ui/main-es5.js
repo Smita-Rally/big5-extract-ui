@@ -85,7 +85,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<form>\n  <ul>\n    <li>\n      <label for=\"firstName\">First Name:</label>\n      <input type=\"text\" id=\"firstName\" name=\"user_first_name\" [value]=\"formData[0]\">\n    </li>\n    <li>\n      <label for=\"lastName\">Last Name:</label>\n      <input type=\"text\" id=\"lastName\" name=\"user_last_name\" [value]=\"formData[1]\">\n    </li>\n    <li>\n      <label for=\"memberId\">Member Id:</label>\n      <input type=\"text\" id=\"memberId\" name=\"user_member_id\" [value]=\"formData[2]\">\n    </li>\n    <li>\n      <label for=\"groupNumber\">Group Number:</label>\n      <input type=\"text\" id=\"groupNumber\" name=\"user_group_number\" [value]=\"formData[3]\">\n    </li>\n    <li>\n      <label for=\"employer\">Employer:</label>\n      <input type=\"text\" id=\"employer\" name=\"user_employer\" [value]=\"formData[4]\">\n    </li>\n  </ul>\n  <div class=\"buttons\">\n    <input type=\"reset\" value=\"Reset\" class=\"form-buttons\"/>\n    <input type=\"submit\" value=\"Submit\" class=\"form-buttons right-btn\"/>\n  </div>\n</form>\n\n";
+    __webpack_exports__["default"] = "<form>\n  <ul>\n    <li>\n      <label for=\"firstName\">First Name:</label>\n      <input type=\"text\" id=\"firstName\" name=\"user_first_name\" [value]=\"formData[0]\">\n    </li>\n    <li>\n      <label for=\"lastName\">Last Name:</label>\n      <input type=\"text\" id=\"lastName\" name=\"user_last_name\" [value]=\"formData[1]\">\n    </li>\n    <li>\n      <label for=\"memberId\">Member Id:</label>\n      <input type=\"text\" id=\"memberId\" name=\"user_member_id\" [value]=\"formData[2]\">\n    </li>\n    <li>\n      <label for=\"groupNumber\">Group Number:</label>\n      <input type=\"text\" id=\"groupNumber\" name=\"user_group_number\" [value]=\"formData[3]\">\n    </li>\n    <li>\n      <label for=\"employer\">Employer:</label>\n      <input type=\"text\" id=\"employer\" name=\"user_employer\" [value]=\"formData[4]\">\n    </li>\n    <li>\n      <label for=\"insuranceCarrier\">Insurance Carrier:</label>\n      <input type=\"text\" id=\"insuranceCarrier\" name=\"user_insurance_carrier\" [value]=\"formData[5]\">\n    </li>\n  </ul>\n  <div class=\"buttons\">\n    <input type=\"reset\" value=\"Reset\" class=\"form-buttons\"/>\n    <input type=\"submit\" value=\"Submit\" class=\"form-buttons right-btn\"/>\n  </div>\n</form>\n\n";
     /***/
   },
 
@@ -4321,31 +4321,25 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony import */
 
 
-    var _mock_mock_data__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
-    /*! ./mock/mock-data */
-    "./src/app/mock/mock-data.ts");
-    /* harmony import */
-
-
-    var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
     /*! @angular/common/http */
     "./node_modules/@angular/common/fesm2015/http.js");
     /* harmony import */
 
 
-    var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
     /*! rxjs/operators */
     "./node_modules/rxjs/_esm2015/operators/index.js");
     /* harmony import */
 
 
-    var _upload_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+    var _upload_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
     /*! ./upload.service */
     "./src/app/upload.service.ts");
     /* harmony import */
 
 
-    var rxjs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+    var rxjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
     /*! rxjs */
     "./node_modules/rxjs/_esm2015/index.js");
 
@@ -4492,19 +4486,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           var formData = new FormData();
           formData.append('file', file);
           file.inProgress = true;
-          this.uploadService.upload(formData).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (event) {
+          this.uploadService.upload(formData).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (res) {
             _this7.showForm = true;
+            var data = res;
 
-            _this7.populateForm(_mock_mock_data__WEBPACK_IMPORTED_MODULE_2__["mockImageExtractorResponse"]);
-
-            if (event instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpResponse"]) {
-              console.log(event); // event.body from response
-
-              _this7.populateForm(_mock_mock_data__WEBPACK_IMPORTED_MODULE_2__["mockImageExtractorResponse"]);
-            }
-          }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(function (error) {
+            _this7.populateForm(data);
+          }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(function (error) {
             file.inProgress = false;
-            return Object(rxjs__WEBPACK_IMPORTED_MODULE_6__["of"])("".concat(file.data.name, " upload failed."));
+            return Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["of"])("upload failed.");
           })).subscribe(function (event) {
             if (typeof event === 'object') {}
           });
@@ -4518,9 +4507,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       return [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Renderer2"]
       }, {
-        type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"]
+        type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]
       }, {
-        type: _upload_service__WEBPACK_IMPORTED_MODULE_5__["UploadService"]
+        type: _upload_service__WEBPACK_IMPORTED_MODULE_4__["UploadService"]
       }];
     };
 
@@ -4706,7 +4695,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             1: null,
             2: null,
             3: null,
-            4: null
+            4: null,
+            5: null
           };
         }
       }]);
@@ -4726,43 +4716,6 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
       /*! ./form.component.css */
       "./src/app/form/form.component.css"))["default"]]
     })], FormComponent);
-    /***/
-  },
-
-  /***/
-  "./src/app/mock/mock-data.ts":
-  /*!***********************************!*\
-    !*** ./src/app/mock/mock-data.ts ***!
-    \***********************************/
-
-  /*! exports provided: mockImageExtractorResponse */
-
-  /***/
-  function srcAppMockMockDataTs(module, __webpack_exports__, __webpack_require__) {
-    "use strict";
-
-    __webpack_require__.r(__webpack_exports__);
-    /* harmony export (binding) */
-
-
-    __webpack_require__.d(__webpack_exports__, "mockImageExtractorResponse", function () {
-      return mockImageExtractorResponse;
-    });
-    /* harmony import */
-
-
-    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
-    /*! tslib */
-    "./node_modules/tslib/tslib.es6.js");
-
-    var mockImageExtractorResponse = {
-      firstName: 'Smita',
-      lastName: 'Trivedi',
-      memberId: '9708772604',
-      groupNumber: '903033',
-      employer: 'Rally Health, Inc',
-      insuranceCarrier: 'United Healthcare'
-    };
     /***/
   },
 
@@ -4816,8 +4769,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         key: "upload",
         value: function upload(formData) {
           return this.httpClient.post(this.SERVER_URL, formData, {
-            reportProgress: true,
-            observe: 'events'
+            observe: 'events',
+            reportProgress: true
           });
         }
       }]);
