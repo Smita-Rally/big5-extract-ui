@@ -4487,6 +4487,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           formData.append('file', file);
           file.inProgress = true;
           this.uploadService.upload(formData).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (res) {
+            console.log(res);
             _this7.showForm = true;
             var data = res;
 

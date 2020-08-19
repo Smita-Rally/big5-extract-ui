@@ -3500,6 +3500,7 @@ let AppComponent = class AppComponent {
         formData.append('file', file);
         file.inProgress = true;
         this.uploadService.upload(formData).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(res => {
+            console.log(res);
             this.showForm = true;
             const data = res;
             this.populateForm(data);

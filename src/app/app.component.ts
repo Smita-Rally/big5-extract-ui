@@ -125,6 +125,7 @@ export class AppComponent implements  OnDestroy {
     file.inProgress = true;
     this.uploadService.upload(formData).pipe(
       map(res => {
+        console.log(res);
         this.showForm = true;
         const data = res as ImageExtractorResponse;
         this.populateForm(data);

@@ -1,12 +1,4 @@
 {
   "extract":
-    {
-      "firstName": "Anand",
-      "lastName": "Trivedi",
-      "memberId": "9708772604",
-      "groupNumber": "903033",
-      "employer": "Rally Health, Inc",
-      "insuranceCarrier": "United Healthcare"
-    }
-
+  {"firstName":"Anand","lastName":"Jahagirdar","memberId":"966751681","groupNumber":"899869","employer":"Rally Health Inc","insuranceCarrier":"UnitedHealthCare"}
 }
