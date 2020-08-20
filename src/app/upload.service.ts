@@ -1,6 +1,7 @@
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpEvent} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {ImageExtractorResponse} from './models/ImageExtractorResponse';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class UploadService {
 
   public upload(formData): any {
 
-    return this.httpClient.post<ImageExtractorResponse>(
+    return this.httpClient.post<Observable<HttpEvent<any>>>(
       this.SERVER_URL,
       formData,
       {
