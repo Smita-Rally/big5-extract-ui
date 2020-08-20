@@ -4486,12 +4486,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           var formData = new FormData();
           formData.append('file', file);
           file.inProgress = true;
-          this.uploadService.upload(formData).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (res) {
-            console.log(res);
-            _this7.showForm = true;
-            var data = res;
+          this.uploadService.upload(formData).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (event) {
+            if (event instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpResponse"]) {
+              var data = event.body;
+              console.log(event, data);
 
-            _this7.populateForm(data);
+              _this7.populateForm(data);
+            }
           }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(function (error) {
             file.inProgress = false;
             return Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["of"])("upload failed.");

@@ -3499,11 +3499,12 @@ let AppComponent = class AppComponent {
         const formData = new FormData();
         formData.append('file', file);
         file.inProgress = true;
-        this.uploadService.upload(formData).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(res => {
-            console.log(res);
-            this.showForm = true;
-            const data = res;
-            this.populateForm(data);
+        this.uploadService.upload(formData).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])((event) => {
+            if (event instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpResponse"]) {
+                const data = event.body;
+                console.log(event, data);
+                this.populateForm(data);
+            }
         }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])((error) => {
             file.inProgress = false;
             return Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["of"])(`upload failed.`);
